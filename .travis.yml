@@ -1,3 +1,5 @@
+language: minimal
+
 git:
   depth: false
   quiet: true
