@@ -3,7 +3,7 @@ language: minimal
 git:
   depth: false
   quiet: true
-  submodules: false
+  submodules: true
 
 branches:
   only:
