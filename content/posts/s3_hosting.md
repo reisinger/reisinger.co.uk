@@ -4,15 +4,13 @@ date: 2020-06-26T23:35:34+01:00
 draft: false
 ---
 
-# AWS S3 hosting
-
 I have chosen the following setup because of simplicity and cost (the only paid part is S3 and even this is quite minimal).
 
 Setup consists of:
- - [hugo](https://gohugo.io/) static website builder
- - [s3](https://aws.amazon.com/s3/) hosting
- - [travis](https://travis-ci.com/) ci/build
- - [cloudflare](https://www.cloudflare.com/) DNS, CDN, ...
+ - [hugo](#hugo) static website builder
+ - [s3](#s3) hosting
+ - [travis](#travis) ci/build
+ - [cloudflare](#cloudflare) DNS, CDN, ...
 
 ## hugo
 
@@ -23,7 +21,7 @@ good option.
 ### build static pages
 I use [makefile](https://github.com/reisinger/reisinger.co.uk/blob/master/Makefile) build target to generate static
 pages:
-```makefile
+```
 HUGO_PACKAGE ?= github.com/gohugoio/hugo@v0.73.0
 
 build:
@@ -36,7 +34,7 @@ this way user does not even need to have [hugo](https://gohugo.io/) framework in
 
 ### test site locally
 Changes can be tested locally with `make local-run` target:
-```makefile
+```
 HUGO_PACKAGE ?= github.com/gohugoio/hugo@v0.73.0
 
 local-run:
@@ -45,7 +43,7 @@ local-run:
 ```
 
 plus corresponding `Dockerfile`:
-```dockerfile
+```
 FROM golang:1.14-alpine AS build
 
 WORKDIR /root
@@ -73,7 +71,7 @@ Select bucket and:
  `permissions -> block public access -> edit -> "un-tick" Block all public access`
  - add bucket policy for cloudflare IP addresses: `permissions -> bucket policy`
  (replace `<bucket-name>` in `Resource` section):
-```json
+```
 {
     "Version": "2012-10-17",
     "Statement": [
@@ -120,8 +118,9 @@ List of source IPs is taken from [cloudflare ip ranges](https://www.cloudflare.c
 
 [Travis](https://travis-ci.com/) runs `make build` and then pushes content of generated public directory to
 [s3 bucket](https://aws.amazon.com/s3/). Content of
-[.travis.yml](https://github.com/reisinger/reisinger.co.uk/blob/master/.travis.yml) file:
-```yaml
+[.travis.yml](https://github.com/reisinger/reisinger.co.uk/blob/master/.travis.yml) file
+(replace `<bucket-name>` and `<region>`):
+```
 language: minimal
 
 git:
@@ -140,8 +139,8 @@ deploy:
   provider: s3
   access_key_id: $AWS_ACCESS_KEY
   secret_access_key: $AWS_SECRET_KEY
-  bucket: reisinger.co.uk
-  region: eu-west-2
+  bucket: <bucket-name>
+  region: <region>
   skip_cleanup: true
   local_dir: ./public
   verbose: true
@@ -154,7 +153,7 @@ configured with environment variables (`travis repository -> more options -> set
 Do NOT use root aws account credentials, but
 [crate new AWS IAM user](https://docs.aws.amazon.com/IAM/latest/UserGuide/id_users_create.html) with
 "Programmatic access" instead and attach policy that only gives access to your bucket (replace `<bucket-name>`):
-```json
+```
 {
     "Version": "2012-10-17",
     "Statement": [
