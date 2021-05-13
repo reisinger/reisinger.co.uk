@@ -3,6 +3,12 @@
 [reisinger.co.uk](https://reisinger.co.uk) web built with [hugo](https://gohugo.io/) and hosted on
 [S3](https://aws.amazon.com/s3/). With [cloudflare](https://www.cloudflare.com/) handling DNS, CDN ...
 
+## initial setup
+
+Project uses theme as git submodule, on initial clone you need to run:
+- `git submodule init`
+- `git submodule update`
+
 ## update/add
 
 To update or add post, create/edit [markdown](https://daringfireball.net/projects/markdown/syntax) file under
