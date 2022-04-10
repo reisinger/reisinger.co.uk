@@ -6,13 +6,18 @@ on:
       - main
 
 jobs:
-  build:
+  release:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
         uses: actions/checkout@v2
         with:
           fetch-depth: 0
+
+      - name: Get submodule theme
+        run: |
+          git submodule init
+          git submodule update --remote --merge
 
       - name: Build
         run: docker run --rm -v "${PWD}":/usr/src/myapp -w /usr/src/myapp golang:1.18.0-alpine sh -c "go install github.com/gohugoio/hugo@v0.96.0 && hugo"
