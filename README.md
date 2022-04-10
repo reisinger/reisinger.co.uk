@@ -7,7 +7,7 @@
 
 Project uses theme as git submodule, on initial clone you need to run:
 - `git submodule init`
-- `git submodule update`
+- `git submodule update --remote --merge`
 
 ## update/add
 
@@ -20,4 +20,4 @@ To test changes locally, run `make local-run` and open [http://localhost:8080](h
 
 ## deploy
 
-`git commit` plus `git push` on a master branch, will automatically deploy changes using [.travis.yml](.travis.yml) file.
+`git commit` plus `git push` on the main branch, will automatically deploy changes.
