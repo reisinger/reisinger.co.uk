@@ -1,11 +1,3 @@
-FROM golang:1.16-alpine AS build
-
-WORKDIR /root
-ARG hugo_package
-RUN GO111MODULE=on go get $hugo_package
-COPY . .
-RUN sed -i 's/baseURL.*/baseURL = "http:\/\/localhost:8080\/"/' config.toml
-RUN hugo -D
-
-FROM nginx:1.19
-COPY --from=build /root/public/ /usr/share/nginx/html
+FROM nginx:1.21.6
+COPY public /usr/share/nginx/html
+RUN grep -rl 'https:\/\/reisinger\.co\.uk\/' /usr/share/nginx/html | xargs sed -i 's/https:\/\/reisinger\.co\.uk\//http:\/\/localhost:8080\//g'
