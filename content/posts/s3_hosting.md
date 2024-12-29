@@ -1,8 +1,8 @@
----
-title: "S3 hosting"
-date: 2020-06-26T23:35:34+01:00
-draft: false
----
++++
+date = '2020-06-26T23:35:34Z'
+draft = false
+title = "S3 hosting"
++++
 
 I have chosen the following setup because of simplicity and cost (the only paid part is S3 and even this is quite minimal).
 
@@ -193,3 +193,4 @@ Configure DNS and Page rules in [cloudflare](https://www.cloudflare.com/):
    - `https://<site>/$1` (replace `<site>`)
 
 It can take a bit of time to propagate all the DNS changes.
+

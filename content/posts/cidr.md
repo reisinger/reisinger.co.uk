@@ -1,8 +1,8 @@
----
-title: "golang - IP, CIDR, masks, ..."
-date: 2022-04-18T12:04:34+01:00
-draft: false
----
++++
+date = '2022-04-18T12:04:34Z'
+draft = false
+title = "golang - IP, CIDR, masks, ..."
++++
 
 Working with IPs and CIDR blocks in golang is quite easy. Because binary is just a number, first we can create
 helper functions to convert from integer to IP (and vice versa) plus get CIDR mask as integer.
@@ -94,3 +94,4 @@ func ipToInt(ip net.IP) uint32 {
 	return binary.BigEndian.Uint32(ip.To4())
 }
 ```
+
